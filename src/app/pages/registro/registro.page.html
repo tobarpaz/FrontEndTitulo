@@ -1,0 +1,55 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      <ion-icon (click)="back()" name="arrow-back-outline"></ion-icon>
+      Roomies
+      <ion-icon name="home-outline"></ion-icon>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content class="bg-gradient" [fullscreen]="true">
+  <ion-grid>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Registrate para ser parte de nuestra comunidad</ion-card-title>
+        <br>
+        
+        <ion-card-subtitle></ion-card-subtitle>
+      </ion-card-header>
+    <br>
+    <br>
+      <ion-card-content>
+        <ion-item>
+          <ion-input [(ngModel)]="nombre" label="Nombre:" label-placement="floating" fill="outline"></ion-input>
+        </ion-item>
+        <br>
+        <ion-item>
+          <ion-input [(ngModel)]="apellidos" label="Apellidos:" label-placement="floating" fill="outline"></ion-input>
+        </ion-item>
+        <br>
+        <ion-item>
+          <ion-input [(ngModel)]="nacimiento" label="Fecha de nacimiento:" label-placement="floating" fill="outline"></ion-input>
+        </ion-item>
+        <br>
+        <ion-item>
+          <ion-input [(ngModel)]="correo" label="Correo electrónico:" label-placement="floating" fill="outline"></ion-input>
+        </ion-item>
+        <br>
+        <ion-item>
+          <ion-input [(ngModel)]="contrasena1" type="password" label="Escribe una Contraseña:" label-placement="floating" fill="outline"></ion-input>
+        </ion-item>
+        <br>
+        <ion-item>
+          <ion-input [(ngModel)]="contrasena2" type="password" label="Confirma tu contraseña:" label-placement="floating" fill="outline"></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+ 
+ <br>
+    <ion-button (click)="registro()" fill="solid" color="dark"expand="block">Siguiente</ion-button>
+  
+  </ion-grid>
+</ion-content>
