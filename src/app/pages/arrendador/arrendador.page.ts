@@ -211,6 +211,10 @@ export class ArrendadorPage implements OnInit {
 
 
 
+  async registrar(){
+    this.router.navigateByUrl('menu');
+  }
+
 
 
 

@@ -208,6 +208,10 @@ export class ArrendatarioPage implements OnInit {
     }
   }
 
+  async registrar(){
+    this.router.navigateByUrl('menu');
+  }
+
 
   async back(){
     await this.router.navigateByUrl("tipo-registro");

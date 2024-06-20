@@ -40,6 +40,9 @@ const routes: Routes = [
     path: 'arrendador',
     loadChildren: () => import('./pages/arrendador/arrendador.module').then( m => m.ArrendadorPageModule)
   },
+  
+ 
+
 ];
 
 @NgModule({
