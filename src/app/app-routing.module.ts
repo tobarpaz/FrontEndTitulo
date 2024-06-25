@@ -37,6 +37,18 @@ const routes: Routes = [
     loadChildren: () => import('./pages/arrendador/arrendador.module').then( m => m.ArrendadorPageModule)
   },
   
+  {
+    path: 'mensajeria',
+    loadChildren: () => import('./pages/mensajeria/mensajeria.module').then( m => m.MensajeriaPageModule)
+  },  {
+    path: 'perfil',
+    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
+  },
+
+  
+
+
+  
  
 
 ];

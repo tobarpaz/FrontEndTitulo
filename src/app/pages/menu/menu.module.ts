@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { MenuPageRoutingModule } from './menu-routing.module';
 
 import { MenuPage } from './menu.page';
-import { UserListComponent } from 'src/app/components/user-list/user-list.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
   imports: [
@@ -16,6 +16,7 @@ import { UserListComponent } from 'src/app/components/user-list/user-list.compon
     IonicModule,
     MenuPageRoutingModule
   ],
-  declarations: [MenuPage, UserListComponent]
+  declarations: [MenuPage],  schemas:[CUSTOM_ELEMENTS_SCHEMA],
+
 })
 export class MenuPageModule {}
