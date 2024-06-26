@@ -1,7 +1,10 @@
 <ion-menu side="end" contentId="main-content">
   <ion-header>
     <ion-toolbar>
-      <ion-title>Menu Content</ion-title>
+      <ion-title>
+        Roomies
+        <ion-icon name="home-outline"></ion-icon>
+        </ion-title>
     
     </ion-toolbar>
   </ion-header>
@@ -10,7 +13,19 @@
       <ion-avatar>
         <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
       </ion-avatar>
-    This is the menu content.</ion-grid>
+      <br>
+      <h1 (click)="perfil()" >Mi perfil</h1>
+      <hr class="custom-divider">
+      <h1 (click)="mensajeria()">Mensajes</h1>
+      <hr class="custom-divider">
+      <h1>Inicio</h1>
+      <hr class="custom-divider">
+      <h1>Terminos y condiciones</h1>
+      <hr class="custom-divider">
+      <h1>soporte</h1>
+      <hr class="custom-divider">
+      <h1>Configuración</h1>
+    </ion-grid>
   </ion-content>
   <ion-button (click)="cerrarSesion()" >Cerrar Sesión</ion-button>
 </ion-menu>
@@ -18,15 +33,31 @@
   <ion-header>
     <ion-toolbar>
       <ion-title>Roomies<ion-icon name="home-outline"></ion-icon></ion-title>
-      <ion-icon slot="start" (click)="back()" name="arrow-back-outline"></ion-icon>
       <ion-buttons slot="end">
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
-  <ion-content class="bg-gradient" [fullscreen]="true" > Tap the button in the toolbar to open the menu. 
+  <ion-content class="bg-gradient" [fullscreen]="true" >
+    <h2>Bienvenido "nombre de usuario"</h2> 
+  <!-- <swiper-container
+  (slidechange)="swiperSlideChanged($event)"
+  [loop]="true"
+  [pagination]="true">
+    <swiper-slide *ngFor="let image of images">
+      <img [src]="image" />
+    </swiper-slide>
+    
+ 
+  </swiper-container> -->
+  <ion-card *ngFor="let p of people" [style.position]="'absolute'">
+    <img [src]="p.img" [style.width]="'100%'" >
+   <ion-card-header>
+    <ion-card-title>{{p.name}}</ion-card-title>
+    <ion-card-subtitle>power:{{p.power}}</ion-card-subtitle>
+   </ion-card-header>
 
-   
+  </ion-card>
 
   </ion-content>
 </div>

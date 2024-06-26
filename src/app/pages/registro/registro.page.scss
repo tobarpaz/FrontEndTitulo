@@ -1,30 +1,8 @@
 
 css
 .mi-elemento {
-  font-family: 'Sanse', sans-serif;
+  font-family: estres;
 }
-// .select{
-//   width: 100%;
-//   max-width: 350px;
-//   margin-bottom: 20px;
-//   --padding-start: 10px;
-//   --padding-end: 10px;
-//   --background: #b0b0b0;
-//   --border-radius: 25px;
-//   --color: black;
-//   --font-size: 1em;
-// }
-// ion-item{
-//   width: 100%;
-//   max-width: 350px;
-//   margin-bottom: 20px;
-//   --padding-start: 10px;
-//   --padding-end: 10px;
-//   --background: #b0b0b0;
-//   --border-radius: 25px;
-//   --color: black;
-//   --font-size: 1em;}
-
 
 ion-input{
    width: 100%;
@@ -36,6 +14,7 @@ ion-input{
   --border-radius: 25px;
   --color: black;
   --font-size: 1em;
+  font-family: estres;
 }
 .custom-divider {
   border: 0;
@@ -58,31 +37,12 @@ ion-input{
 }
 ion-button{
   margin: 0;
+  font-family: estres;
 }
 .custom-border-button:hover {
   background-color:#acacac; /* Cambia el color de fondo al pasar el mouse */
   color: #ffffff; /* Cambia el color del texto al pasar el mouse */
 }
-// .custom-option{  
-//   width: 100%;
-//   max-width: 350px;
-//   margin-bottom: 20px;
-//   --padding-start: 10px;
-//   --padding-end: 10px;
-//   --background: #b0b0b0;
-//   --border-radius: 25px;
-//   --color: black
-//   --font-size: 1em;}
-
-// ion-select-option{
-//   width: 100%;
-//   max-width: 350px;
-//   margin-bottom: 20px;
-//   --padding-start: 10px;
-//   --padding-end: 10px;
-//   --background: #b0b0b0;
-//   --border-radius: 25px;
-//   --color: black;
-//   --font-size: 1em;
-// }
-
+ion-card-title{
+  font-family: estres;
+}
