@@ -22,15 +22,8 @@ export class TipoRegistroPage implements OnInit {
 
   ngOnInit() {
   }
-
-  tipo_registro(){
-    if (this.seleHabitacion == this.seleHabitacion){
-      
-    }
-  }
   
   async habitacion(){
-    await this.storage.keepUser(this.seleHabitacion);
     await this.router.navigateByUrl("rommie");
   }
 

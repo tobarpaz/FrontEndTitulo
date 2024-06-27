@@ -78,6 +78,7 @@ export class RommiePage implements OnInit {
     this.database.agregarDescripcion(this.texto,this.seleVivienda,this.selePago,this.seleMascotas,this.seleEjercicios,this.seleAlimentacion,this.seleCigarro,this.seleComunidad,this.seleAlcohol);
     console.log(descripcion);
     this.router.navigateByUrl('menu');
+
   }
 
 
