@@ -1,12 +1,30 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>soporte</ion-title>
+    <ion-title class="toolbar-title">
+      <ion-icon (click)="back()" name="arrow-back-outline" class="toolbar-icon"></ion-icon>
+      <img src="assets/img/logo1.jpeg" alt="Logo" class="toolbar-logo">
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="bg-gradient" [fullscreen]="true">
   <ion-grid>
+    <ion-card>
+    <h1>¿Necesitas Ayuda?</h1>
+    <br>
+    <h3>Escribenos y nuestro equipo se pondra en contacto contigo a la brevedad.</h3>
+    <br>
+    <ion-item class="custom-textarea-item">
+      <ion-label position="floating"></ion-label>
+      <ion-textarea [(ngModel)]="texto" placeholder="Escribe aquí tu solicitud." class="custom-textarea" auto-grow="true"></ion-textarea>
+      <ion-icon name="chatbubble-outline" slot="start"></ion-icon>
+    </ion-item>
+    <div class="custom-border-button">
+    <ion-button  color="dark" expand="block" fill="solid" (click)="solicitud()">Enviar</ion-button>
+  </div>
+    <br>
 
 
+    </ion-card>
   </ion-grid>
 </ion-content>

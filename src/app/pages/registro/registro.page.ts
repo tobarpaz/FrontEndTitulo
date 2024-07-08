@@ -21,16 +21,16 @@ export class RegistroPage implements OnInit {
 
   nombre: string ="";
   apellidos: string ="";
-  nacimiento: string="";
-  selegenero: boolean = false;
-  femenino:boolean = false;
-  masculino:boolean = false;;
-  noDecirlo:boolean = false;
-  otro:boolean = false;
+  nacimiento: string;
+  rol: string = "";
+  selegenero: string="";
+
+
   edad:number = 0;
   correo: string ="";
   contrasena1: string ="";
   contrasena2: string ="";
+  
 
   regiones:Region [] = [];
   comunas:Comuna [] = [];
@@ -70,9 +70,19 @@ export class RegistroPage implements OnInit {
        this.disabledComuna = false;
     }catch(error:any){
       await this.helper.mostrarAlerta(error.error.msg,"");
-     }
-     
-     
+     } 
+  }
+
+
+
+
+  calcularEdad() {
+    if (!this.nacimiento) return; // Si no hay fecha de nacimiento, salir
+
+    const fechaNacimiento = new Date(this.nacimiento);
+    const hoy = new Date();
+    const edadMilisegundos = hoy.getTime() - fechaNacimiento.getTime();
+    this.edad = Math.floor(edadMilisegundos / (1000 * 60 * 60 * 24 * 365.25));
   }
 
   async registro(){
@@ -94,14 +104,17 @@ export class RegistroPage implements OnInit {
       await this.helper.mostrarAlerta("Debes ingresar un apellido válido","Información");
       return;
     }
+    if(this.rol == "Dueño de casa"){
+      await this.router.navigateByUrl('propietario');
+    }
 
     if(this.nacimiento == "") {
       await this.helper.mostrarAlerta("Debes ingresar tu fecha de nacimiento","Información");
       return;
     }
 
-    if(this.edad<=17){
-      await this.helper.mostrarAlerta("Debes ser mayor de 18 años","información");
+    if (this.edad < 18) {
+      await this.helper.mostrarAlerta("Debes ser mayor de 18 años", "información");
       return;
     }
     
@@ -110,11 +123,11 @@ export class RegistroPage implements OnInit {
       return;
     }
     
-
     if(this.contrasena1 == "" ) {
       await this.helper.mostrarAlerta("Debes ingresar una contraseña.", "Información");
       return;
     }
+
 
     if(this.contrasena2 == "") {
       await this.helper.mostrarAlerta("Debes confirmar tu contraseña.","Información");
@@ -125,74 +138,62 @@ export class RegistroPage implements OnInit {
       await this.helper.mostrarAlerta("Las contraseñas no coinciden.", "Información");
       return;
     } 
-  
-
-    var usuario =
-    [
-      {
-        nombre: this.nombre,
-        apellido: this.apellidos,
-        nacimiento: this.nacimiento,
-        edad: this.edad,
-        genero: this.selegenero,
-        comuna: this.seleComuna,
-        region: this.seleRegion,
-        correo: this.correo,
-        contrasena1: this.contrasena1,
-        contrasena2 : this.contrasena2
-      }
-    ]
+    
+    const loading = await this.helper.MostrarCarga('Registrando...');
 
     try {
       const req = await this.auth.createUserWithEmailAndPassword(this.correo, this.contrasena2);
-      this.storage.keepUser(usuario);
-      this.database.agregarUsuario(this.nombre,this.apellidos,this.nacimiento,this.edad,this.selegenero,this.seleComuna,this.seleRegion,this.correo);
-      await this.router.navigateByUrl('tipo-registro');
-      console.log(usuario);
-      
-      
-    
-    }catch(error:any){
 
-      if(error.code == 'auth/email-alredy-in-use'){
-        await this.loaderController.dismiss();
-        await this.helper.mostrarAlerta("Correo ya registrado","Error");
-        
+      if (req) {
+        console.log("Éxito al crear usuario");
+
+        // Enviar correo de verificación
+        await req.user.sendEmailVerification();
+
+        // Almacenar datos en Firestore
+        const id = req.user.uid;
+        await this.database.agregarUsuario({
+          apellido: this.apellidos,
+          comuna: this.seleComuna,
+          region: this.seleRegion,
+          correo: this.correo,
+          edad: this.edad,
+          genero: this.selegenero,
+          nacimiento: this.nacimiento,
+          nombre: this.nombre,
+          uid: id,
+          rol: this.rol,
+          photos: []
+        });
+
+        await loading.dismiss();
+        await this.helper.showtoast('Registro exitoso');
+
+        // Redireccionar según el rol
+        if (this.rol === "Dueño de casa") {
+          await loading.dismiss();
+          await this.router.navigateByUrl('propietario');
+        } else if (this.rol === "Roommie") {
+          await this.router.navigateByUrl('roommie');
+          await loading.dismiss();
+        } else {
+          await loading.dismiss();
+          console.error("Rol no reconocido:", this.rol);
+        }
       }
+    } catch (error) {
+      await loading.dismiss();
+      console.error('Error al registrar usuario:', error);
 
-      if(error.code == 'auth/weak-password'){
-        await this.loaderController.dismiss();
-        await this.helper.mostrarAlerta("La contraseña no alcanza el mínimo de caracteres requeridos","Error"); 
+      if (error.code === 'auth/email-already-in-use') {
+        await this.helper.mostrarAlerta("El correo electrónico ya está en uso.", "Error");
+      } else if (error.code === 'auth/weak-password') {
+        await this.helper.mostrarAlerta("La contraseña debe tener al menos 6 caracteres.", "Error");
+      } else {
+        await this.helper.mostrarAlerta("Error al registrar usuario. Por favor, inténtalo de nuevo más tarde.", "Error");
       }
-
-      if(error.code == 'auth/invalid-email'){
-        await this.loaderController.dismiss();
-        await this.helper.mostrarAlerta("El correo no es válido","Error");
-      }
-
-      if(error.code == 'auth/user-not-found'){
-        await this.loaderController.dismiss();
-        await this.helper.mostrarAlerta("Usuario no encontrado","Error");
-       
-      }
-
-      if(error.code == 'auth/wrong-password'){
-        await this.loaderController.dismiss();
-        await this.helper.mostrarAlerta("La contraseña ingresada no es válida","Error");
-      }
-      return;
-    
-
     }
-    
-   
-
-    
-   
-    }
-
-   
-
+  }
     
   
 
@@ -201,11 +202,7 @@ export class RegistroPage implements OnInit {
     await this.router.navigateByUrl('login');
   }
 
-  
-
-  
 
  
+  
 }
-
-

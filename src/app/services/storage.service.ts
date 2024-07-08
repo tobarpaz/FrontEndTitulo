@@ -25,8 +25,9 @@ export class StorageService {
     const usuario = await this.getItem(keyStorageUsuario);
 
     if (usuario == null ) {
-      return [];     
-    }    
+      return [];
+
+    }
 
     const usuarios = JSON.parse(usuario);
 
@@ -35,7 +36,7 @@ export class StorageService {
     }else{
       return [];
     }
-   
+
   }
 
   async keepUser(user:any[]){
